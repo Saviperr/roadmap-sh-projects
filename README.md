@@ -1,4 +1,4 @@
-[https://roadmap.sh/projects/server-stats](https://roadmap.sh/projects/server-stats)
+https://roadmap.sh/projects/server-stats](https://roadmap.sh/projects/server-stats
 
 
 # Server Stats Analytics Script
