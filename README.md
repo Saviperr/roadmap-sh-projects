@@ -1,114 +1,136 @@
-https://roadmap.sh/projects/log-archive-tool
+https://roadmap.sh/projects/static-site-server
 
-# 📦 Log Archive Tool (DevOps Beginner Project)
+# 🚀 Static Website Deployment using Nginx and Rsync
 
-## 📌 Overview
+## 📌 Project Overview
 
-This project is a simple CLI tool built using Bash that archives logs from a given directory by compressing them into `.tar.gz` format. It also maintains a log of all archive operations.
-
----
-
-## 🚀 Features
-
-* Accepts log directory as input
-* Compresses logs into `.tar.gz`
-* Stores archives in a separate directory
-* Adds timestamp to each archive
-* Logs archive history
+This project demonstrates how to deploy a static website to a remote Linux server using Nginx and rsync. It covers basic DevOps concepts such as server setup, SSH access, web server configuration, and file synchronization.
 
 ---
 
-## ⚙️ Usage
+## 🧰 Tools & Technologies Used
+
+* Linux (Ubuntu Server)
+* NGINX
+* SSH
+* rsync
+* HTML, CSS
+
+---
+
+## ⚙️ Steps Performed
+
+### 1. Server Setup
+
+* Created a remote Linux server using a cloud provider
+* Used Ubuntu 22.04 as the operating system
+
+---
+
+### 2. SSH Connection
+
+Connected to the server using SSH:
 
 ```bash
-./log-archive.sh <log-directory>
+ssh -i my-key.pem ubuntu@65.0.120.4
 ```
 
-### Example:
+---
+
+### 3. Installed Nginx
+
+Updated packages and installed Nginx:
 
 ```bash
-./log-archive.sh /var/log
+sudo apt update
+sudo apt install nginx -y
 ```
 
----
+Started and enabled Nginx:
+```bash
+sudo systemctl start nginx
+sudo systemctl enable nginx
 
-## 🛠️ How It Works
-
-1. Takes directory input
-2. Validates directory existence
-3. Generates timestamp
-4. Compresses logs
-5. Stores archive in `archives/`
-6. Logs the operation in `archive.log`
-
----
-
-## 📁 Project Structure
-
-```
-.
-├── log-archive.sh
-├── archives/
-├── archive.log
-├── README.md
-```
-
----
-
-## 🔧 Setup
-
-### 1. Clone repository
+### 4. Configured Web Server
 
 ```bash
-git clone <your-repo-url>
-cd <repo-name>
+cd /var/www/html
+sudo rm index.nginx-debian.html
+sudo nano index.html
 ```
 
+---
 
-### 2. Make script executable
+### 5. Created Static Website
+
+A simple website was created using HTML and CSS files locally.
+
+---
+
+### 6. Deployed Using Rsync
+
+Used rsync to sync local files with the server:
 
 ```bash
----
-
-### 3. Run the script
-
-## 📊 Example Output
-
-```
-Archive created: archives/logs_archive_20260410_153000.tar.gz
-
-## 💡 Key Learnings
-
-* Bash scripting
-* Automation of system tasks
-* Working with tar and compression
-* Logging operations
-* CLI tool development
-
----
-
-## 🚀 Future Improvements
-
-* Archive only `.log` files
-* Auto-delete old archives
-* Schedule using cron jobs
-* Add error handling and alerts
-
----
-
-## 🙌 Author
-
-Beginner DevOps Learner 🚀
+rsync -avz -e "ssh -i my-key.pem" . ubuntu@65.0.120.4:/var/www/html/
 ```
 
 ---
-```
 
----
+### 7. Deployment Script
+
+Created a script `deploy.sh` to automate deployment:
 
 ```bash
-./log-archive.sh /var/log
-chmod +x log-archive.sh
+#!/bin/bash
+
+SERVER_IP="65.0.120.4"
+KEY="my-key.pem"
+REMOTE_DIR="/var/www/html"
+
+echo "Deploying website..."
+
+rsync -avz -e "ssh -i $KEY" . ubuntu@$SERVER_IP:$REMOTE_DIR
+
+echo "Deployment completed!"
 ```
 
+---
+
+### 8. Accessing the Website
+
+The website is accessible at:
+
+```
+http://65.0.120.4
+```
+
+---
+
+---
+
+## 📄 License
+
+This project is for educational purposes.
+## 🎯 Learning Outcomes
+
+
+## 🚀 Conclusion
+
+This project provided hands-on experience in deploying a static website using real-world tools. It helped in understanding the fundamentals of web hosting and deployment automation.
+
+---
+
+* Learned how to set up a Linux server
+* Understood SSH authentication using key pairs
+* Gained basic understanding of deployment workflows
+* Installed and configured Nginx web server
+* Deployed static websites manually
+* Used rsync for efficient file synchronization
+
+* Default web directory used: `/var/www/html`
+* Removed default file and added custom website:
+```
+
+---
 
